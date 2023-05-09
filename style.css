@@ -2,7 +2,7 @@ html,body{
     margin: 0;
     padding: 0;
     box-sizing:border-box;
-    background-color: rgb(45, 47, 55);
+    background-color: #8491A3;
 }
 .display .eq{
    text-align: right;
@@ -17,15 +17,16 @@ html,body{
 button{
     border-radius: 2.5rem;
     font-size: 1.5rem;
-    background-color: rgb(167, 167, 167);
+    background-color: #F7FFF6;
     border: none;
+    box-shadow: -3px 3px 8px  #93B48B;;
 }
 button:hover{
     transform: scale(1.05,1.05);
 }
 button:active{
     font-size: 1.45rem;
-    background-color:  rgb(114, 114, 116);
+    background-color:  #93B48B;
 }
 footer{
     width: 100vw;
@@ -40,17 +41,17 @@ footer{
     box-sizing: border-box;
     width: max(25%,350px);
     padding: 1.5rem;
-    background-color: rgb(20, 19, 21);
+    background-color: #87D68D;
     display: flex;
     flex-direction: column;
     gap: 1rem;
    border-radius: 1.5rem;
    margin: 1.5rem auto 1rem auto;
    border: none;
-   box-shadow: -5px 3px 8px rgb(25, 24, 27);
+   box-shadow: -5px 3px 8px  #57606d;
 }
 .display{
-    background-color: rgba(194, 224, 221, 0.308);
+    background-color: #BCEBCB;
     padding: .3rem;
     margin-top: .3rem;
     margin-bottom: .3rem;
