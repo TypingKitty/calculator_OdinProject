@@ -6,74 +6,26 @@ const point = keys.querySelector('.point');
 const buttons = keys.querySelectorAll('button');
 const listener = (event) => {
     let id = event.target.getAttribute('data-id');
-    if(event.target.classList.contains("num")){
-        
-            if(operator == undefined)
-            {
-                first+=id;
-                ans.textContent = first;
-            }
-            else {second+=id;
-                ans.textContent = second;
-            } 
-    }
-    else if(event.target.classList.contains("equal")){
-        first = calculate()+""
-        if(first != "")
-        ans.textContent = first;
-        else{
-            ans.textContent = "error";
-        }
-    }
-    else if(event.target.classList.contains("op")){
-        point.addEventListener('click',listener);
-        if(first=="") first ="0";
-        if(second != ""){
-        first = calculate()+""
-        if(first == ""){
-            ans.textContent = "error";
-            first = "0";
-        }
-        }
-        operator = id;
-        exp.textContent = first+operator;
-    }
-    else if(event.target.classList.contains("point")){
-        let id = event.target.getAttribute('data-id');
-            if(operator == undefined)
-            {
-                first+=id;
-                ans.textContent = first;
-            }
-            else {second+=id;
-                ans.textContent = second;
-            }
-        event.target.removeEventListener('click', listener);
-    }
-    else if(event.target.classList.contains("clear")){
-        first = second = "";
-        operator = undefined;
-        ans.textContent="";
-        exp.textContent="";
-        point.addEventListener('click',listener);
-    }
-    else{
-        if(operator == undefined)
-        {
-            first = first.slice(0,-1);
-            ans.textContent = first;
-        }
-        else{
-           second = second.slice(0,-1);
-           ans.textContent = second;
-        }
-    }
+    if(event.target.classList.contains("num")) GETNUM(id);
+    else if(event.target.classList.contains("equal")) EQUAL();
+    else if(event.target.classList.contains("op")) OPERATOR(id);
+    else if(event.target.classList.contains("point")) POINT(id);
+    else if(event.target.classList.contains("clear")) CLEAR();
+    else DELETE();
 };
 
 buttons.forEach((button)=>{
     button.addEventListener('click', listener);
 });
-
+window.addEventListener('keydown',(e)=>{
+    console.log((e.key == "−", typeof("−")));
+    if(e.key == 'Backspace') DELETE();
+    else if(e.key == 'Enter') EQUAL();
+    else if(e.key >="0" && e.key <="9") GETNUM(e.key);
+    else if(e.key == '.') POINT('.');
+    else if(e.key == 'Escape') CLEAR();
+    else if(e.key == "+" || e.key == "-" || e.key == "/" || e.key == "*") OPERATOR(getOperator(e.key));
+});
 function calculate()
 {   
     let one  = parseFloat(first);
@@ -112,4 +64,71 @@ function calculate()
     first = second = "";
     operator = undefined;
     return a;
+}
+function GETNUM(id){
+    if(operator == undefined)
+    {
+        first+=id;
+        ans.textContent = first;
+    }
+    else {second+=id;
+        ans.textContent = second;
+    } 
+}
+function EQUAL(){
+    first = calculate()+""
+    if(first != "")
+    ans.textContent = first;
+    else{
+        ans.textContent = "error";
+    }
+}
+function OPERATOR(id){
+    point.addEventListener('click',listener);
+    if(first=="") first ="0";
+    if(second != ""){
+    first = calculate()+""
+    if(first == ""){
+        ans.textContent = "error";
+        first = "0";
+    }
+    }
+    operator = id;
+    exp.textContent = first+operator;
+}
+function POINT(id){
+    if(operator == undefined)
+    {
+        first+=id;
+        ans.textContent = first;
+    }
+    else {second+=id;
+        ans.textContent = second;
+    }
+point.removeEventListener('click', listener);
+}
+function CLEAR(){
+    first = second = "";
+    operator = undefined;
+    ans.textContent="";
+    exp.textContent="";
+    point.addEventListener('click',listener);
+}
+function DELETE(){
+    if(operator == undefined)
+    {
+        first = first.slice(0,-1);
+        ans.textContent = first;
+    }
+    else{
+       second = second.slice(0,-1);
+       ans.textContent = second;
+    }
+}
+function getOperator(op)
+{
+    if(op == '/') return "÷";
+    else if(op == '-') return "−";
+    else if(op == '+') return "+";
+    else return "×";
 }
